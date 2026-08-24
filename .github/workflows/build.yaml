@@ -72,6 +72,6 @@ jobs:
         if: github.ref == 'refs/heads/main'
         uses: moaeiou/moaeiou/actions/rsync@main
         with:
-          local: ./mio-${{ matrix.dickname }}
+          local: mio-${{ matrix.dickname }}
           remote: /var/www/html/orgmio/mio/
           key: ${{ secrets.CC_LA_KEY }}

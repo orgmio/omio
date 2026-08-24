@@ -123,10 +123,11 @@ mio:`https://r2.867678.xyz/pcap/way-mio.pcapng`
 
 开发使用的配置文件可以在项目根目录新建一个叫做`config.toml`的配置文件，caddy可以直接放在`caddy-real/`目录 Git已忽略他们
 
-初始化环境（假设你用archlinux并位于mio根目录）
+初始化环境（假设你用archlinux）
 
 ```bash
-sudo pacman -Syyuu --needed wget
+sudo pacman -Syyuu --needed wget git
+git clone git@github.com:orgmio/mio.git
 wget -O config.toml https://raw.githubusercontent.com/orgmio/mio/refs/heads/main/example-client.toml
 cd caddy-real
 wget https://github.com/caddyserver/caddy/releases/download/v2.11.4/caddy_2.11.4_linux_amd64.tar.gz
