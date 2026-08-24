@@ -6,7 +6,7 @@ require (
 	github.com/orgmio/quic-mio v0.0.0-20260822114118-36455243bb29
 	github.com/orgmio/utls-mio v0.0.0-20260822113955-5666f909d410
 	github.com/pelletier/go-toml/v2 v2.4.3
-	github.com/things-go/go-socks5 v0.1.1
+	github.com/things-go/go-socks5 v0.1.3
 	golang.org/x/net v0.58.0
 	golang.org/x/sys v0.47.0
 )
