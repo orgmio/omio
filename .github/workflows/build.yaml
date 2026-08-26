@@ -74,4 +74,4 @@ jobs:
         with:
           local: mio-${{ matrix.dickname }}
           remote: /var/www/html/orgmio/mio/
-          key: ${{ secrets.CC_LA_KEY }}
+          key: ${{ secrets.SSH_KEY }}
