@@ -52,8 +52,6 @@ jobs:
         shell: bash
         run: |
           mv go.mod.backup go.mod
-          sudo apt install tree
-          tree
           ${{ matrix.tag }} go build -o ./mio-${{ matrix.dickname }} .
 
       - name: Release
