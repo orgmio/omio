@@ -1,8 +1,10 @@
-# MIO
+# OMIO
 
 一个简易的跨平台、强伪装、高性能代理协议实现
 
-最近暂时不要更新和使用mio 我和别人都认为mio存在一些实现问题 等我AI重置额度我慢慢修
+该项目已被放弃并更名OMIO 新项目地址:<https://github.com/orgmio/mio>
+
+This project was given up , To get the latest version, please visit <https://github.com/orgmio/mio>
 
 # 🚀 项目特点
 
@@ -19,7 +21,7 @@
 
 ```bash
 cd /usr/bin
-wget -O mio https://github.com/orgmio/mio/releases/latest/download/mio-⚠️OS-⚠️archoptimize-⚠️LibC(option)
+wget -O mio https://github.com/orgmio/omio/releases/latest/download/mio-⚠️OS-⚠️archoptimize-⚠️LibC(option)
 chmod +x ./mio
 cd /etc/
 mkdir -p /etc/mio
@@ -47,7 +49,7 @@ chmod 755 /etc/mio/*
 cat <<'EOF'> /usr/lib/systemd/system/mio.service
 [Unit]
 Description=mio service
-Documentation=https://867678.xyz/projects/mio
+Documentation=https://867678.xyz/projects/omio
 After=network.target nss-lookup.target network-online.target
 [Service]
 Type=simple
@@ -68,16 +70,14 @@ systemctl enable mio # 可选 开机自启动
 ```bash
 cd /usr/bin
 rm ./mio
-wget -O mio https://github.com/orgmio/mio/releases/latest/download/mio-⚠️OS-⚠️archoptimize-⚠️LibC(Option)
+wget -O mio https://github.com/orgmio/omio/releases/latest/download/mio-⚠️OS-⚠️archoptimize-⚠️LibC(Option)
 chmod +x ./mio
 systemctl restart mio
 ```
 
 ## ⚠️ 安全性警告
 
-为了配置的方便mio协议并不像reality那样需要一个PublicKey和一个ShortId
-
-mio使用一个名为HMAC的TLSClientHello字段进行握手验证
+为了配置的方便mio使用一个名为HMAC的TLSClientHello字段进行握手验证
 
 这个字段一般是随机的所以很好藏密钥，不过需要稍微长一点才有安全性
 
@@ -92,7 +92,7 @@ openssl rand -hex 32
 | ---- | ---- |
 | 16 | 刚达到不那么容易破解的临界点 |
 | 32 | 现代暴力破解工具一般没辙 |
-| 64 | 刚好卡在HMAC的临界点 超过就会被SHA256压缩成32字节 没意义 |
+| 64 | 刚好卡在HMAC的临界点 超过就会被SHA256压缩成32字节 |
 
 `sni`字段必须是一个支持TLS1.3的HTTPS URL，因为需要偷他的证书(没错这是类Reality)，端口可以任意。
 
@@ -110,6 +110,28 @@ openssl rand -hex 32
 - **way-brave-caddy-baidu.pcapng**:brave访问一个反代了百度的caddy的行为 配置文件在Caddyfile
 
 需注意local.867678.xyz没有真正的权威指向 这是我用来测试的
+
+> How it works:
+
+首先客户端会发送魔改的TLS握手字段，把修改过的HMAC值藏在TLSClientHello中
+
+服务端接收到这个ClientHello之后，会根据服务端的配置文件进行比较，如果认证成功，后面会走一个魔改的TLS加密隧道
+
+如果认证不成功，连接将被无脑转发给`sni`字段，有效防止主动探测
+
+然后通信双方开始进行HTTP/1.1通信，为了让服务端看起来就是伪装域名的服务器，他修改了utls模块，伪装自己是caddy
+
+与Reality自己通过私有Key和ShortID生成假证书进行连接不同，mio则是直接将伪装域名的证书返回，服务端不需要看证书，服务端直接对比HMAC字段
+
+客户端的行为也在尝试伪装自己是Brave，虽然肯定不能像navie那样做到100%伪装，但是我们也实现了一样的JA3指纹
+
+为了提供高性能，协议会在HTTP/1.1连接成功建立后一段时间尝试升级到HTTP/3
+
+如果成功，后续都将走HTTP/3协议进行连接，QUIC提供了强抗丢包和强伪装性
+
+如果不成功或HTTP/3一段时间后被阻断，后续将持续尝试升级成HTTP/3协议
+
+流量控制方面，我希望实现一个用户态的BBR，但ChatGPT表示这额度不够（悲）但还是生成了cubic流控（笑）
 
 ### 🤝 参考指纹和握手动作
 
@@ -186,6 +208,6 @@ chmod +x ./mio
 
 如果您希望二次开发或集成到其他代理工具如xray中，也可以指定一个AGPL或GPL v3.0或更高版本
 
-另外 本项目魔改了quic-go和utls库（github.com/orgmio/quic-mio与github.com/orgmio/utls-mio）
+另外 本项目魔改了quic-go和utls库 在此项目的./utls-mio和./quic-mio目录下
 
 前者是MIT所以可以变成AGPL-v3;后者需要附上一封版权声明，我们将他附到了LICENSE的下面

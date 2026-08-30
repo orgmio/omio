@@ -12,9 +12,14 @@ require (
 )
 
 require (
-	github.com/andybalholm/brotli v1.2.2 // indirect
+	github.com/andybalholm/brotli v1.2.3 // indirect
 	github.com/klauspost/compress v1.19.2 // indirect
 	github.com/quic-go/qpack v0.6.0 // indirect
 	golang.org/x/crypto v0.55.0 // indirect
 	golang.org/x/text v0.41.0 // indirect
+)
+
+replace (
+	github.com/orgmio/quic-mio => ./quic-mio
+	github.com/orgmio/utls-mio => ./utls-mio
 )

@@ -6,9 +6,10 @@ import (
 	"runtime/debug"
 )
 
-const Version = "0.3.0"
+const Version = "0.3.1"
 
 func PrintVersion() {
+	fmt.Printf("This project was given up , To get the latest version, please visit https://github.com/orgmio/mio\n")
 	fmt.Printf("mio V%s\n\n", Version)
 	info, _ := debug.ReadBuildInfo()
 	settings := make(map[string]string)

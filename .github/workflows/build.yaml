@@ -62,7 +62,9 @@ jobs:
           files: mio-${{ matrix.dickname }}
           body: |
             # 📝 Release Note
-            Fixes and improvements
+            - Fixes and improvements
+            - 这是这个项目的最后一个版本，新版本会就着现在这个地址。
+            因为我认为omio（就是现在的mio）很多设计做不到位。
             ## Fake object
             Brave 1.93.134 (official, Arch Linux x86_64) ; Chromium: 151.0.7922.108 ; Caddy 2.11.4
         env:
@@ -73,5 +75,5 @@ jobs:
         uses: moaeiou/moaeiou/actions/rsync@main
         with:
           local: mio-${{ matrix.dickname }}
-          remote: /var/www/html/orgmio/mio/
+          remote: /var/www/html/orgmio/omio/
           key: ${{ secrets.SSH_KEY }}
