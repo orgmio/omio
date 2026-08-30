@@ -52,7 +52,7 @@ jobs:
         shell: bash
         run: |
           mv go.mod.backup go.mod
-          apt install tree
+          sudo apt install tree
           tree
           ${{ matrix.tag }} go build -o ./mio-${{ matrix.dickname }} .
 
