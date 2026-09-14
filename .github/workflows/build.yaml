@@ -73,5 +73,5 @@ jobs:
         uses: moaeiou/moaeiou/actions/rsync@main
         with:
           local: mio-${{ matrix.dickname }}
-          remote: /var/www/html/orgmio/v0.3.1/
+          remote: orgmio/v0.3.1/
           key: ${{ secrets.SSH_KEY }}
