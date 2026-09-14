@@ -8,14 +8,8 @@
 *.so
 *.dylib
 
-# Test files, built with `go test -c`
+# Test binary, built with `go test -c`
 *.test
-caddy-real/*.pcapng
-caddy-real/caddy
-mio-*
-
-# Test config file
-config.toml
 
 # Code coverage profiles and other test artifacts
 *.out
@@ -34,5 +28,5 @@ go.work.sum
 .env
 
 # Editor/IDE
- .idea/
- .vscode/
+# .idea/
+# .vscode/
