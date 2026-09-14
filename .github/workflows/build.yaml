@@ -1,7 +1,7 @@
 name: Just fly,don't worry(Do you worry?Do you worry?)
 
 on:
-  push:
+  #push:
   workflow_dispatch:
 permissions:
   contents: write
