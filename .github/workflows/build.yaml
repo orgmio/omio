@@ -55,7 +55,6 @@ jobs:
           ${{ matrix.tag }} go build -o ./mio-${{ matrix.dickname }} .
 
       - name: Release
-        if: github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@master
         with:
           tag_name: V${{ steps.get_version.outputs.version }}
@@ -71,9 +70,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Send to mirror
-        if: github.ref == 'refs/heads/main'
         uses: moaeiou/moaeiou/actions/rsync@main
         with:
           local: mio-${{ matrix.dickname }}
-          remote: /var/www/html/orgmio/omio/
+          remote: /var/www/html/orgmio/v0.3.1/
           key: ${{ secrets.SSH_KEY }}
